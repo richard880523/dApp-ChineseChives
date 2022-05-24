@@ -7,7 +7,7 @@ def klines(symbol, interval, num = 1000):
     client = Spot()
     return client.klines(symbol, interval, limit=num)
 
-## Economic Indicator Here ~
+## [TODO]: Economic Indicator Here ~
 
 
 if __name__ == "__main__":
