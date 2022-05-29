@@ -13,8 +13,8 @@ def klines(symbol, interval, num = 1000):
 
 ## [TODO]: Economic Indicator Here ~
 def indicator(symbol, interval, num = 1000):
-    # bar is a list type objectc
-    pd.set_option('display.precision', 8)
+    # bar is a list type object
+    # pd.options.display.float_format = '{:, .4f}'.format
     bars = klines(symbol, interval, num)
 
     # delete unwanted data - just keep date, open, high, low, close
@@ -23,15 +23,11 @@ def indicator(symbol, interval, num = 1000):
     
     btc_df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close'])
     btc_df[['date', 'open', 'high', 'low', 'close']] = btc_df[['date', 'open', 'high', 'low', 'close']].apply(pd.to_numeric)
-    btc_df['close'] = pd.to_numeric(btc_df['close'], errors='coerce')
-    # btc_df['close'] = btc_df['close'].astype('float64')
-
-    # btc_df = btc_df.astype('float64')
+    # btc_df['close'] = pd.to_numeric(btc_df['close'], errors='coerce')
     
     btc_df['date'] = pd.to_datetime(btc_df['date'], unit='ms')
     btc_df['date'] = btc_df['date'].astype(str)
     btc_df.set_index('date', inplace=True)
-    # print(btc_df)
 
     # optional
     # calculate 20 moving average using Pandas
@@ -43,20 +39,17 @@ def indicator(symbol, interval, num = 1000):
     # rsi = btalib.rsi(btc_df.close, period=14)
     # print(rsi.df.rsi[-1])
     
-    macd = btalib.macd(btc_df.close, pfast=20, pslow=50, psignal=13)
+    macd = btalib.macd(btc_df.close, pfast=12, pslow=26, psignal=9)
     # print(macd.df)
 
     # join the rsi and macd calculations as columns in original df
     # btc_df = btc_df.join([rsi.df, macd.df])
     btc_df = btc_df.join([macd.df])
-    # btc_df = btc_df.round(8)
-
-    btc_df = btc_df.fillna('null')
-    # print(btc_df.size)
-
-    btc_df = btc_df.astype({'sma': 'object', 'macd': 'object', 'signal': 'object', 'histogram': 'object'})
-    # print(btc_df)
+    
+    btc_df = btc_df.fillna(0)
+    btc_df = btc_df.round(decimals=8)
     btc_df = btc_df.reset_index()
+    print(btc_df.dtypes)
     btc_dict = btc_df.to_dict()
     
     return btc_dict
