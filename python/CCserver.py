@@ -1,17 +1,38 @@
+import imp
 import json
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler, SimpleHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 
 import econ
+import catch_data
 
 HOST = 'localhost'
 PORT = 8080
+
+# class CORSRequestHandler (SimpleHTTPRequestHandler):
+#     def end_headers (self):
+#         self.send_header('Access-Control-Allow-Origin', '*')
+#         SimpleHTTPRequestHandler.end_headers(self)
+
+class CORSRequestHandler(SimpleHTTPRequestHandler):
+    
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', '*')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate')
+        return super(CORSRequestHandler, self).end_headers()
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.end_headers()
 
 class ChineseChivesHTTP( BaseHTTPRequestHandler ):
 
     def json_response(self, data):
         self.send_response(200)
         self.send_header("Content-type", "application/json")
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
 
         content = json.dumps(data) # Convert to json
@@ -41,7 +62,8 @@ class ChineseChivesHTTP( BaseHTTPRequestHandler ):
                 
             elif url.path == '/trade':
                 #[TODO]: Grid Trade bot command
-                data = "Not Implemented"
+                # /trade?term=short&symbol=BTC/USDT&init_cash=10000
+                data = catch_data.trade( *params['term'], *params['symbol'], int(*params['init_cash']) )
 
         except Exception as e:
             data = { "Invalid Format": str(e) }
@@ -50,15 +72,14 @@ class ChineseChivesHTTP( BaseHTTPRequestHandler ):
         self.json_response(data)
 
 def run_server( HOST: str, PORT: int ):
-    server = HTTPServer( (HOST, PORT), ChineseChivesHTTP)
+    server = HTTPServer( (HOST, PORT), ChineseChivesHTTP, CORSRequestHandler)
     print("Server running...")
     print("Server started http://%s:%s" % (HOST, PORT))
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         pass
-    
-    server.serve_forever()
+
     server.server_close()
     print("Server closed")
 
