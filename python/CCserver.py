@@ -58,7 +58,6 @@ def run_server( HOST: str, PORT: int ):
     except KeyboardInterrupt:
         pass
     
-    server.serve_forever()
     server.server_close()
     print("Server closed")
 
