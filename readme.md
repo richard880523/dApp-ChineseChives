@@ -8,7 +8,10 @@
 + 資工碩一 r10922144 林辰臻
 
 ## Backend Server
-1. Setup the (HOST, PORT) in `CCserver.py`. defaut is (localhost, 9999)
+1. Setup the (HOST, PORT) in `CCserver.py`. defaut is (localhost, 8080)
 2. Running the server `$ python3 CCserver.py`
+
+## Hackmd 紀錄
+https://hackmd.io/sNBhtWo9TyOJDIneyKRRPA
 
 
