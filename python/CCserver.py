@@ -5,7 +5,7 @@ from urllib.parse import urlparse, parse_qs
 import econ
 
 HOST = 'localhost'
-PORT = 9999
+PORT = 8080
 
 class ChineseChivesHTTP( BaseHTTPRequestHandler ):
 
@@ -15,7 +15,6 @@ class ChineseChivesHTTP( BaseHTTPRequestHandler ):
         self.end_headers()
 
         content = json.dumps(data) # Convert to json
-
         self.wfile.write( bytes(content, 'utf-8') )
 
 
@@ -37,8 +36,9 @@ class ChineseChivesHTTP( BaseHTTPRequestHandler ):
 
             elif url.path == '/econ':
                 #[TODO]: Economic indicator
-                data = "Not Implemented"
-
+                # /econ?symbol=ETHUSDT&interval=1m&num=1000
+                data = econ.indicator( *params['symbol'], *params['interval'], int(*params['num']) )
+                
             elif url.path == '/trade':
                 #[TODO]: Grid Trade bot command
                 data = "Not Implemented"
@@ -52,6 +52,12 @@ class ChineseChivesHTTP( BaseHTTPRequestHandler ):
 def run_server( HOST: str, PORT: int ):
     server = HTTPServer( (HOST, PORT), ChineseChivesHTTP)
     print("Server running...")
+    print("Server started http://%s:%s" % (HOST, PORT))
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    
     server.serve_forever()
     server.server_close()
     print("Server closed")
