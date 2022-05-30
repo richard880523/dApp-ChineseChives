@@ -9,30 +9,18 @@ import catch_data
 HOST = 'localhost'
 PORT = 8080
 
-# class CORSRequestHandler (SimpleHTTPRequestHandler):
-#     def end_headers (self):
-#         self.send_header('Access-Control-Allow-Origin', '*')
-#         SimpleHTTPRequestHandler.end_headers(self)
+class ChineseChivesHTTP( BaseHTTPRequestHandler ):
 
-class CORSRequestHandler(SimpleHTTPRequestHandler):
-    
-    def end_headers(self):
+    def end_headers(self) -> None:
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', '*')
         self.send_header('Access-Control-Allow-Headers', '*')
         self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate')
-        return super(CORSRequestHandler, self).end_headers()
-
-    def do_OPTIONS(self):
-        self.send_response(200)
-        self.end_headers()
-
-class ChineseChivesHTTP( BaseHTTPRequestHandler ):
+        return super().end_headers()
 
     def json_response(self, data):
         self.send_response(200)
         self.send_header("Content-type", "application/json")
-        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
 
         content = json.dumps(data) # Convert to json
@@ -72,7 +60,7 @@ class ChineseChivesHTTP( BaseHTTPRequestHandler ):
         self.json_response(data)
 
 def run_server( HOST: str, PORT: int ):
-    server = HTTPServer( (HOST, PORT), ChineseChivesHTTP, CORSRequestHandler)
+    server = HTTPServer( (HOST, PORT), ChineseChivesHTTP)
     print("Server running...")
     print("Server started http://%s:%s" % (HOST, PORT))
     try:
