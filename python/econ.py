@@ -36,15 +36,15 @@ def indicator(symbol, interval, num = 1000):
     # create sma and attach as column to original df
     btc_df['sma'] = btalib.sma(btc_df, period=20).df
     
-    # rsi = btalib.rsi(btc_df.close, period=14)
+    rsi = btalib.rsi(btc_df.close, period=14)
     # print(rsi.df.rsi[-1])
     
     macd = btalib.macd(btc_df.close, pfast=12, pslow=26, psignal=9)
     # print(macd.df)
 
     # join the rsi and macd calculations as columns in original df
-    # btc_df = btc_df.join([rsi.df, macd.df])
-    btc_df = btc_df.join([macd.df])
+    btc_df = btc_df.join([rsi.df, macd.df])
+    # btc_df = btc_df.join([macd.df])
     
     btc_df = btc_df.fillna(0)
     btc_df = btc_df.round(decimals=8)
