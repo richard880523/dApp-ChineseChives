@@ -23,7 +23,6 @@ def indicator(symbol, interval, num = 1000):
     
     btc_df = pd.DataFrame(bars, columns=['date', 'open', 'high', 'low', 'close'])
     btc_df[['date', 'open', 'high', 'low', 'close']] = btc_df[['date', 'open', 'high', 'low', 'close']].apply(pd.to_numeric)
-    # btc_df['close'] = pd.to_numeric(btc_df['close'], errors='coerce')
     
     btc_df['date'] = pd.to_datetime(btc_df['date'], unit='ms')
     btc_df['date'] = btc_df['date'].astype(str)
@@ -36,15 +35,12 @@ def indicator(symbol, interval, num = 1000):
     # create sma and attach as column to original df
     btc_df['sma'] = btalib.sma(btc_df, period=20).df
     
-    # rsi = btalib.rsi(btc_df.close, period=14)
-    # print(rsi.df.rsi[-1])
-    
+    rsi = btalib.rsi(btc_df.close, period=14)
     macd = btalib.macd(btc_df.close, pfast=12, pslow=26, psignal=9)
     # print(macd.df)
 
     # join the rsi and macd calculations as columns in original df
-    # btc_df = btc_df.join([rsi.df, macd.df])
-    btc_df = btc_df.join([macd.df])
+    btc_df = btc_df.join([rsi.df, macd.df])
     
     btc_df = btc_df.fillna(0)
     btc_df = btc_df.round(decimals=8)
