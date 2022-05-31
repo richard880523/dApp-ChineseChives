@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src='https://cdn.plot.ly/plotly-2.12.1.min.js'></script>
+        <link rel="stylesheet" href="style.css">
+        <title>
+            小白救星
+        </title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row" id="title-section">
+                <h1>小白救星</h1>
+                <p style="color: rgba(255, 255, 255, 0.7); font-size: 12px;">根據歷史紀錄及當前幣價幫您自動賺錢的交易機器人</p>
+            </div>
+            <div class="row">
+                <div class="col-8" id="upper-section">
+                </div>
+                <div class="col-4" id="bot-control">
+                    <form>
+                        <!-- 交易時長 -->
+                        <div class="row mt-3 mb-2">
+                            <label for="btn-dropdown-period" class="col-4 col-form-label">風險屬性</label>
+                            <div class="col-5">
+                                <select class="form-select" aria-label="Default select example" id="btn-dropdown-period">
+                                    <!-- <option selected>請選擇</option> -->
+                                    <option value="long" selected>積極</option>
+                                    <option value="short">保守</option>
+                                    <option value="mid">穩健</option>
+                                    <option value="skyground">佛系</option>
+                                </select>    
+                            </div>
+                            
+                            <!-- Button trigger modal -->
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-help">
+                                <span class="material-icons" id="icon-info-1">
+                                    info
+                                </span>
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">投資風險屬性</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul>
+                                            <li>積極交易：震盪行情時穩定交易，單邊行情時則可能大賺或大賠。</li>
+                                            <li>保守交易：震盪行情時穩定交易，單邊行情時賺得較少，相對也賠的較少。</li>
+                                            <li>穩健交易：介於積極與保守間的交易策略。</li>
+                                            <li>佛系交易：設定天地單，適合長期放養。</li>
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 交易對 -->
+                        <div class="row" style="display: flex;">
+                            <label for="btn-dropdown-pair" class="col-4 col-form-label">交易對</label>
+                            <div class="col-6">
+                                <select class="form-select" aria-label="Default select example" id="btn-dropdown-pair">
+                                    <!-- <option selected>請選擇</option> -->
+                                    <option value="BTC/USDT" selected>BTC/USDT</option>
+                                    <option value="ETH/USDT">ETH/USDT</option>
+                                    <option value="BNB/USDT">BNB/USDT</option>
+                                </select>    
+                            </div>
+                        </div>
+
+                        <!-- 本金 -->
+                        <div class="row" style="display: flex;">
+                            <label for="btn-input-money" class="col-4 col-form-label mt-2">本金<br>(USD)</label>
+                            <div class="col-5 mt-2">
+                                <input type="number" step="1" class="form-control" pattern="\d+" id="btn-input-money" placeholder="請輸入整數">
+                            </div>
+                        </div>
+
+                        <!-- 按鈕群組 -->
+                        <div class="row" id="btn-group">
+                            <button type="button" class="btn btn-light col-4" id="btn-test">回測</button>
+                            <button type="button" class="btn btn-secondary col-4" id="btn-trade" disabled>交易</button>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal_2" id="btn-help_2">
+                                <span class="material-icons" id="icon-info-1">
+                                    info
+                                </span>
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal_2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">回測</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>我們為您分別進行本年度漲幅最大、跌幅最大以及最近期的兩個禮拜來進行回測，<br>
+                                            並提供在相同時段以RSI指標進行交易的策略作為對照。</p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="result">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+                
+            <div class="row" id="lower-section">
+                <div class="col-8" id="indicator">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">SMA</button>
+                          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MACD</button>
+                          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">RSI</button>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"></div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"></div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"></div>
+                      </div>
+                </div>
+                <div class="col-4 main-svg" id="bot-result">
+                    
+                </div>
+                
+            </div>
+        </div>
+
+        <script src="data.js"></script>
+    </body>
+</html>

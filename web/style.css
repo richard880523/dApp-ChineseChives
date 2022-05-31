@@ -1,0 +1,177 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+      url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+      url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+body {
+    background-color: #198754;
+}
+
+h1 {
+    color: white;
+}
+
+h2 {
+    color: darkgray;
+}
+
+.material-icons {
+    color: white;
+}
+
+#icon-info-1 {
+    position: relative;
+    left: -12px;
+}
+
+.btn {
+    max-width: 200px;
+    margin: 10px;
+}
+
+label {
+    font-weight: bold;
+    color: white;
+}
+
+.nav-tabs .nav-link {
+    /* background-color: #0080FF; */
+    color: #FFF;
+    /* font-weight: normal; */
+}
+
+.nav-tabs .nav-link.active {
+    color: #198754;
+    font-weight: bold;
+}
+
+#title-section {
+    height: 20vh;
+    color: white;
+    padding-top: 5vh;
+}
+
+#upper-section {
+    background-color: rgba(255, 255, 255, 0.25);
+    height: 70vh;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+/* BOT CONTROL */
+#bot-control {
+    /* margin-top: 20px; */
+    /* width: 40vw; */
+    height: 40vh;
+    background-color: transparent;
+}
+
+#bot-control > * {
+    margin-left: 30px;
+}
+
+.bot-title {
+    float: left;
+}
+
+.form-select {
+    background-color: white;
+    color: #198754;
+}
+
+#btn-test {
+    color: #198754;
+    font-weight: bold;
+}
+
+#btn-help {
+    display: flex;
+    background-color: transparent;
+    width: 15px;
+    height: 25px;
+    border: none;
+    margin-bottom: 3vh;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+
+#btn-help_2 {
+    display: flex;
+    background-color: transparent;
+    width: 15px;
+    height: 25px;
+    border: none;
+    margin-bottom: 3vh;
+    position: relative;
+    top: 15px;
+}
+
+.modal-content {
+    width: max-content;
+}
+
+.modal-title {
+    color: #198754;
+    font-weight: bold;
+}
+
+/* .modal-body {
+    text-align: justify;
+} */
+
+#btn-group {
+    /* margin-left: 30px; */
+    justify-content: center;
+}
+
+#btn-input-money {
+    /* height: 30px; */
+    margin-top: 10px;
+}
+/* END OF BOT CONTROL */
+
+#indicator {
+    margin-bottom: 20px;
+    /* width: 60vw; */
+    height: 40vh;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    
+}
+
+#result {
+    float: left;
+}
+
+#bot-result {
+    height: 70vh;
+    margin-top: -30vh;
+}
+
+#upper-section .plotly .modebar {
+    right: 20px;
+}
+
+.tab-pane .plotly .modebar {
+    top: -35px;
+}
+
+#bot-result .plotly .modebar {
+    right: 25px;
+}
+
+.tab-pane {
+    width: 58vw;
+    height: 35vh;
+    position: relative;
+    /* right: -10px; */
+}
