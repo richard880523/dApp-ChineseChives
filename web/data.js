@@ -1,14 +1,14 @@
   
   
 window.onload = function(){
-    econ();
+    econ('BTCUSDT');
 }
 
 // Call API
 document.getElementById("btn-test").addEventListener("click", trade);
 
-function econ() {
-$.getJSON('http://localhost:8080/econ?symbol=ETHUSDT&interval=1d&num=1000', function(data){
+function econ(coin) {
+$.getJSON('http://localhost:8080/econ?symbol='+coin+'&interval=1d&num=1000', function(data){
     console.log('Calling API /econ.')
     // var display = `Datetime: ${data.date[0]}<br>
     //             Open: ${data.open[0]}<br>   
@@ -295,7 +295,7 @@ function trade() {
     var symbol_val = document.getElementById('btn-dropdown-pair').value;
     var init_cash_val = document.getElementById('btn-input-money').valueAsNumber;
 
-    console.log(init_cash_val);
+    // console.log(init_cash_val);
 
     if(Number.isInteger(init_cash_val) === false){
         console.log('init value is not an integer');
@@ -306,7 +306,7 @@ function trade() {
         return;
     }
 
-    console.log(term_val, symbol_val, init_cash_val);
+    // console.log(term_val, symbol_val, init_cash_val);
     $('#btn-test').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 處理中');
     document.getElementById("btn-test").setAttribute("disabled", ""); 
 
@@ -323,12 +323,15 @@ function trade() {
             </div>\
         </div>'
     );
+
+    // console.log(symbol_val.replace('/', ''));
+    econ(String(symbol_val.replace('/', '')));
     
 
     $.getJSON(`http://localhost:8080/trade?term=${term_val}&symbol=${symbol_val}&init_cash=${init_cash_val}`, function(data){
         // var endPrice = data[0].toFixed(4);
         // document.getElementById('result').firstChild.data = endPrice.toString();
-        console.log(data);
+        // console.log(data);
 
         var values = [
             ['Nearest', 'Best', 'Worst'],
