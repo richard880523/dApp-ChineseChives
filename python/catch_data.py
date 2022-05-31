@@ -158,9 +158,9 @@ def rsi(data,init_cash):
 # if __name__ == '__main__':
 def trade(term, symbol, init_cash = 10000):
     # user define inputs
-    term = "long" #input1
-    symbol = 'BTC/USDT' #input2
-    init_cash = 10000 #input3
+    # term = "long" #input1
+    # symbol = 'BTC/USDT' #input2
+    # init_cash = 10000 #input3
     
     # history data
     start_date = "2020-01-01"
